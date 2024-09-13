@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="engagement_open" model="project.engagement.stage">
+            <field name="name">Open</field>
+            <field name="key">open</field>
+        </record>
+        <record id="engagement_closed" model="project.engagement.stage">
+            <field name="name">Closed</field>
+            <field name="key">closed</field>
+        </record>
+    </data>
+</odoo>

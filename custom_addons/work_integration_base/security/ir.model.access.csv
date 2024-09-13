@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_work_integration_user,access_work_integration_user,model_work_integration,group_work_integration_user,1,1,1,0
+access_work_integration_manager,access_work_integration_manager,model_work_integration,group_work_integration_manager,1,1,1,1
+

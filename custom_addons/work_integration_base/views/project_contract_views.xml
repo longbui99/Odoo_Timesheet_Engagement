@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_project_contract_tree_view_inherit" model="ir.ui.view">
+        <field name="name">Project Contract</field>
+        <field name="model">project.contract</field>
+        <field name="inherit_id" ref="work_timesheet.work_project_contract_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="integration_id"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="work_project_contract_form_view_inherit" model="ir.ui.view">
+        <field name="name">Project Contract</field>
+        <field name="model">project.contract</field>
+        <field name="inherit_id" ref="work_timesheet.work_project_contract_form_view"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="integration_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="work_project_contract_search_view_inherit" model="ir.ui.view">
+        <field name="name">Project Contract</field>
+        <field name="model">project.contract</field>
+        <field name="inherit_id" ref="work_timesheet.work_project_contract_search_view"/>
+        <field name="arch" type="xml">
+            <field name="manager_id" position="after">
+                <field name="integration_id"/>
+            </field>
+            <filter name="group_by_company" position="after">
+                <filter name="group_by_integration" string="Source" context="{'group_by': 'integration_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>

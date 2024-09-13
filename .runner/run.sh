@@ -1,0 +1,1 @@
+python3 -m debugpy --listen 0.0.0.0:8888 /opt/odoo/base/odoo/odoo-bin -c /opt/odoo/.config/odoo.config

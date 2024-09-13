@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_project_project_form_view" model="ir.ui.view">
+        <field name="name">Project Project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <button name="action_view_tasks" position="before">
+                <button class="oe_stat_button" type="object" name="action_view_rates" icon="fa-dollar">
+                    <field string="Rates" name="rate_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_roles" icon="fa-users">
+                    <field string="Roles" name="role_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_schedules" icon="fa-calendar">
+                    <field string="Schedules" name="schedule_count" widget="statinfo"/>
+                </button>
+            </button>
+        </field>
+    </record>
+
+</odoo>

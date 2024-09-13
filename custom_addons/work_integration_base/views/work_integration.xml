@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_work_integration_tree_view" model="ir.ui.view">
+        <field name="name">Work Integration</field>
+        <field name="model">work.integration</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="key"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="work_work_integration_form_view" model="ir.ui.view">
+        <field name="name">Work Integration</field>
+        <field name="model">work.integration</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="name"/>
+                <field name="key"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="work_work_integration_search_view" model="ir.ui.view">
+        <field name="name">Work Integration</field>
+        <field name="model">work.integration</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="key"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_work_integration" model="ir.actions.act_window">
+        <field name="name">Integration</field>
+        <field name="res_model">work.integration</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="work_work_integration_tree_view"/>
+        <field name="search_view_id" ref="work_work_integration_search_view"/>
+    </record>
+
+    <menuitem
+            name="Integration"
+            id="menu_integration"
+            action="action_work_integration"
+            sequence="0"
+            parent="project.menu_project_config"
+        />
+</odoo>

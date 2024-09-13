@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.module.category" id="model_category_integration">
+        <field name="name">Integration</field>
+    </record>
+    <record id="group_work_integration_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="model_category_integration"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    <record id="group_work_integration_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="model_category_integration"/>
+        <field name="implied_ids" eval="[(4, ref('work_integration_base.group_work_integration_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    
+</odoo>
