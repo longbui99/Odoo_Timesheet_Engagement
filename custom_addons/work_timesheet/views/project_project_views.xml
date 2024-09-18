@@ -5,6 +5,10 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.edit_project"/>
         <field name="arch" type="xml">
+            <field name="is_favorite" position="after">
+                <field name="id" invisible="1"/>
+                <field name="sequence_code" style="width:fit-content;margin-right:10px;" readonly="id and not sequence_code"/>
+            </field>
             <button name="action_view_tasks" position="before">
                 <button class="oe_stat_button" type="object" name="action_view_rates" icon="fa-dollar">
                     <field string="Rates" name="rate_count" widget="statinfo"/>
@@ -16,6 +20,21 @@
                     <field string="Schedules" name="schedule_count" widget="statinfo"/>
                 </button>
             </button>
+        </field>
+    </record>
+
+
+    <record id="work_project_project_form_view_simplified" model="ir.ui.view">
+        <field name="name">Project Project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.project_project_view_form_simplified"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <group>
+                    <field name="id" invisible="1"/>
+                    <field name="sequence_code" readonly="id"/>
+                </group>
+            </field>
         </field>
     </record>
 

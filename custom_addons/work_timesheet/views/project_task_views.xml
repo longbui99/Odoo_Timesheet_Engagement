@@ -5,6 +5,9 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
+            <field name="priority" position="after">
+                <field name="key" style="width:fit-content;margin-right:10px;" readonly="1"/>
+            </field>
             <xpath expr="//notebook" position="inside">
                 <page string="Settings" name="settings" groups="project.group_project_manager">
                     <group>

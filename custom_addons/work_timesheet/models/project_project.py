@@ -15,6 +15,11 @@ class Propject(models.Model):
 
     schedule_ids = fields.One2many("project.schedule", "project_id", string="Schedule")
     schedule_count = fields.Integer(string="Schedule Count", compute="compute_schedule_count")
+    sequence_id = fields.Many2one(
+        'ir.sequence', 'Reference Sequence',
+        check_company=True, copy=False)
+    sequence_code = fields.Char('Sequence Prefix', required=True)
+
 
     def compute_rate_count(self):
         self.mapped("rate_ids")
@@ -30,6 +35,11 @@ class Propject(models.Model):
         self.mapped("schedule_ids")
         for record in self:
             record.schedule_count = len(record.schedule_ids)
+    
+    @api.depends('sequence_code', 'name')
+    def _compute_display_name(self):
+        for project in self:
+            project.display_name = f'[{project.sequence_code}] {project.name}'
 
     # ================================================= ACTION =======================================
 
@@ -59,3 +69,27 @@ class Propject(models.Model):
         action["domain"] = [("project_id", "in", self.ids)]
         action["context"] = {"default_project_id": self.id}
         return action
+
+
+    # ======================== CURD ============================
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get('sequence_id') and vals.get('sequence_code'):
+                vals['sequence_id'] = self.env['ir.sequence'].sudo().create({
+                    'name': _('Sequence') + ' ' + vals['sequence_code'],
+                    'prefix': vals['sequence_code'] + "-", 
+                    'padding': 3,
+                    'company_id': vals.get('company_id') or self.env.company.id,
+                }).id
+        return super().create(vals_list)
+    
+    def write(self, vals):
+        if 'sequence_code' in vals:
+            for project in self:
+                project.sequence_id.sudo().write({
+                    'name': _('Sequence') + ' ' + vals['sequence_code'],
+                    'prefix': vals['sequence_code'] + "-", 'padding': 3,
+                    'company_id': project.env.company.id,
+                })
+        return super().write(vals)
