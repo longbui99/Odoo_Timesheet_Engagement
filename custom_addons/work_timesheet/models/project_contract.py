@@ -44,7 +44,7 @@ class Contract(models.Model):
         column1='sign_template_id',
         column2='contract_id',
         )
-    signed_document_ids = fields.Many2many(, string="Signed Document(s)", comodel_name="sign.request", relation="sign_request_contract",
+    signed_document_ids = fields.Many2many(string="Signed Document(s)", comodel_name="sign.request", relation="sign_request_contract",
         column1='sign_template_id',
         column2='contract_id',)
 
