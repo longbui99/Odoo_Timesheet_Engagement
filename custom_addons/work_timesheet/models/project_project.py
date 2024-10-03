@@ -18,8 +18,9 @@ class Propject(models.Model):
     sequence_id = fields.Many2one(
         'ir.sequence', 'Reference Sequence',
         check_company=True, copy=False)
-    sequence_code = fields.Char('Sequence Prefix', required=True)
-
+    sequence_code = fields.Char('Sequence Prefix', required=True, copy=False)
+    cost_employee_ids = fields.One2many("project.employee.cost", "project_id", string="Employee Cost")
+    is_required_description = fields.Boolean(string="Is Required Description?", default=True)
 
     def compute_rate_count(self):
         self.mapped("rate_ids")
@@ -40,6 +41,28 @@ class Propject(models.Model):
     def _compute_display_name(self):
         for project in self:
             project.display_name = f'[{project.sequence_code}] {project.name}'
+
+    # ================================================= PREPARE VALUES ===============================
+    
+    def prepare_sale_order_line_values(self, data_map):
+        return {
+            'name': data_map.product_id.name,
+            'product_uom_qty': quantity,
+            'product_id': data_map.product_id and line.product_id.id or False,
+            'product_uom': data_map.product_id and line.product_id.uom_id.id or line.product_uom.id,
+            'price_unit': price,
+            'company_id': self.company_id.id,
+        }
+
+    def prepare_sale_order_values(self):
+        so_metadata = {
+            'partner_id': self.partner_id,
+        }
+        line_datas = []
+        for sale_map in self.cost_employee_ids:
+            pass
+
+        
 
     # ================================================= ACTION =======================================
 
@@ -70,6 +93,10 @@ class Propject(models.Model):
         action["context"] = {"default_project_id": self.id}
         return action
 
+    def action_create_sale_order(self):
+        self.ensure_one()
+        values = self.prepare_sale_order_values()
+        self.env['sale.order'].create(values)
 
     # ======================== CURD ============================
     @api.model_create_multi

@@ -1,17 +1,18 @@
 version: "3.9"
-name: "odoo17"
+name: "odoo-erp-17"
 services:
   odoo:
-    image: odoo-arm:17
-
+    image: builong99/odoo-adm:17
+    build: ../.docker
     ports:
-      - "8069:8069"
+      - "8090:8069"
+      - "8072:8072"
     volumes:
       - ../:/opt/odoo
       - odoo_data:/home/odoo/.local/share/Odoo
     command: bash -c "$${PYTHON_PATH} $${START_ODOO} $${ODOO_PARAM} && tail -f /dev/null"
     environment:
-      PYTHON_PATH: ""
+      PYTHON_PATH: "/opt/odoo/.runner/run.sh"
       START_ODOO: ""
       ODOO_PARAM: ""
     depends_on:
@@ -23,14 +24,14 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres17_data:/var/lib/postgresql/data
     restart: unless-stopped
     environment:
       POSTGRES_DB: postgres
-      POSTGRES_USER: root
+      POSTGRES_USER: odoo
       POSTGRES_PASSWORD: odoo
     tty: true
 
 volumes:
   odoo_data:
-  postgres_data:
+  postgres17_data:

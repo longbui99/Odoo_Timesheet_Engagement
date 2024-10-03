@@ -44,6 +44,16 @@
                         <page string="Projects">
                             <field name="project_ids" context="{'default_partner_id': partner_id}"/>
                         </page>
+                        <page string="Contracts">
+                            <group>
+                                <group>
+                                    <field name="sign_template_ids"/>
+                                </group>
+                                <group>
+                                    <field name="signed_document_ids"/>
+                                </group>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
                 <div class="o_attachment_preview"/>

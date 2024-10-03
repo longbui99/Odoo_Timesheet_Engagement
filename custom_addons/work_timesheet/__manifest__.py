@@ -4,7 +4,7 @@
     "category": "Long Bui",
     "author": "Long Bui",
     "website": "https://www.longbui.net",
-    "depends": ["timesheet_grid", "hr", "project"],
+    "depends": ["timesheet_grid", "hr", "project", "sale_timesheet", "sign"],
     "license": "LGPL-3",
     "data": [
         # DATA

@@ -40,6 +40,15 @@ class Contract(models.Model):
     company_id = fields.Many2one("res.company", required=True, default=lambda self:self.env.company.id)
     budget = fields.Float(string="Budget")
 
+    sign_template_ids = fields.Many2many(string="Contract(s)", comodel_name="sign.template", relation="sign_template_contract",
+        column1='sign_template_id',
+        column2='contract_id',
+        )
+    signed_document_ids = fields.Many2many(, string="Signed Document(s)", comodel_name="sign.request", relation="sign_request_contract",
+        column1='sign_template_id',
+        column2='contract_id',)
+
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:

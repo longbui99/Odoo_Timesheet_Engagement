@@ -44,7 +44,7 @@
                             <field name="contract_ids" context="{'default_partner_id': partner_id}"/>
                         </page>
                         <page string="Projects">
-                            <field name="project_ids" context="{'default_partner_id': partner_id}"/>
+                            <field name="project_ids" context="{'default_partner_id': partner_id}" readonly="1"/>
                         </page>
                     </notebook>
                 </sheet>

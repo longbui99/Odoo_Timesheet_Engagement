@@ -7,7 +7,7 @@ class PropjectTask(models.Model):
 
     is_required_description = fields.Boolean(string="Is Required Description?", default=True)
     rate_id = fields.Many2one("project.rate", string="Rate")
-    key = fields.Char(string="Key")
+    key = fields.Char(string="Key", copy=False)
     project_id = fields.Many2one(required=True)
 
     @api.model_create_multi
@@ -18,7 +18,9 @@ class PropjectTask(models.Model):
             if vals.get('key', '/') == '/' and defaults.get('key', '/') == '/' and vals.get('project_id', defaults.get('project_id')):
                 if project.sequence_id:
                     vals['key'] = project.sequence_id.next_by_id()
-        return super().create(vals_list)
+        res = super().create(vals_list)
+        res.filtered(lambda task: not task.is_required_description and task.project_id.is_required_description).update({'is_required_description': True})
+        return res
     
     @api.depends('key', 'name')
     def _compute_display_name(self):

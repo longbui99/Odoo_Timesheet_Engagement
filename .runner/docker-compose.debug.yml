@@ -1,10 +1,10 @@
 version: "3.9"
-name: "odoo17"
+name: "odoo-erp-17"
 services:
   odoo:
 
-    image: odoo-arm:17
-
+    image: builong99/odoo-adm:17
+    build: ../.docker
     ports:
       - "8069:8069"
       - "8888:8888"
@@ -13,7 +13,7 @@ services:
       - odoo_data:/home/odoo/.local/share/Odoo
     command: bash -c "$${EXEC_COMAND} && tail -f /dev/null"
     environment:
-      EXEC_COMAND: "/opt/odoo/.runner/run.sh"
+      EXEC_COMAND: "/opt/odoo/.runner/run_debug.sh"
     depends_on:
       - postgres
     restart: unless-stopped
