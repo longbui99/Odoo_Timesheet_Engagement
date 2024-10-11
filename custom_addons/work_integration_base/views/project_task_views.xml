@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_project_task_form_view" model="ir.ui.view">
+        <field name="name">Project Task</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='settings']//field[@name='rate_id']" position="before">
+                <field name="integration_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

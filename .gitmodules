@@ -1,0 +1,8 @@
+[submodule "enterprise"]
+	url = https://github.com/odoo/enterprise.git
+	path = base/enterprise
+	branch = 17.0
+[submodule "odoo"]
+	url = https://github.com/odoo/odoo.git
+	path = base/odoo
+	branch = 17.0

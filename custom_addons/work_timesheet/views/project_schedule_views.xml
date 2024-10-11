@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="work_project_schedule_form_view" model="ir.ui.view">
+        <field name="name">Project Schedule</field>
+        <field name="model">project.schedule</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="project_id"/>
+                        <field name="role_id"/>
+                        <field name="employee_id"/>
+                    </group>
+                    <group>
+                        <field name="date"/>
+                        <field name="schedule_hour"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="work_project_schedule_grid_view" model="ir.ui.view">
+        <field name="name">Project Schedule</field>
+        <field name="model">project.schedule</field>
+        <field name="arch" type="xml">
+            <grid string="Timesheets"
+                    barchart_total="1"
+                    create_inline="1"
+                    form_view_id="%(work_timesheet.work_project_schedule_form_view)d"
+                    editable="1"
+                    display_empty="1"
+                    sample="1">
+                <field name="role_id" type="row" section="1" widget="timesheet_many2one"/>
+                <field name="employee_id" type="row" invisible="1" widget="timesheet_many2one_avatar_employee"/>
+                <!-- <field name="project_id" type="row" widget="timesheet_many2one"/> -->
+                <field name="date" type="col">
+                    <range name="month" string="Month" span="month" step="week" hotkey="m"/>
+                    <range name="year" string="Year" span="year" step="week" hotkey="y"/>
+                </field>
+                <field name="schedule_hour" type="measure" widget="timesheet_uom"/>
+            </grid>
+        </field>
+    </record>
+
+    <record id="work_project_schedule_tree_view" model="ir.ui.view">
+        <field name="name">Project Schedule</field>
+        <field name="model">project.schedule</field>
+        <field name="arch" type="xml">
+            <tree >
+                <field name="project_id" readonly="1"/>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="schedule_hour"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_project_schedule" model="ir.actions.act_window">
+        <field name="name">Schedule</field>
+        <field name="res_model">project.schedule</field>
+        <field name="view_mode">grid,tree,form</field>
+        <field name="view_id" ref="work_project_schedule_grid_view"/>
+    </record>
+
+</odoo>

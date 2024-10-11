@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_project_project_form_view" model="ir.ui.view">
+        <field name="name">Project Project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <field name="is_favorite" position="after">
+                <field name="id" invisible="1"/>
+                <field name="sequence_code" style="width:fit-content;margin-right:10px;" readonly="id and not sequence_code"/>
+            </field>
+            <button name="action_view_tasks" position="before">
+                <button class="oe_stat_button" type="object" name="action_view_rates" icon="fa-dollar">
+                    <field string="Rates" name="rate_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_roles" icon="fa-users">
+                    <field string="Roles" name="role_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" type="object" name="action_view_schedules" icon="fa-calendar">
+                    <field string="Schedules" name="schedule_count" widget="statinfo"/>
+                </button>
+            </button>
+        </field>
+    </record>
+
+    <record id="work_project_project_form_view" model="ir.ui.view">
+        <field name="name">Project Project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="sale_project.view_edit_project_inherit_form"/>
+        <field name="arch" type="xml">
+            <group name="group_sales_invoicing" position="before">
+                <group name="engagement_management" string="Engagement">
+                    <field name="engagement_id" domain="[('partner_id', '=', partner_id)]"/>
+                    <field name="contract_id" domain="[('partner_id', '=', partner_id)]"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+
+    <record id="work_project_project_form_view_simplified" model="ir.ui.view">
+        <field name="name">Project Project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.project_project_view_form_simplified"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <group>
+                    <field name="id" invisible="1"/>
+                    <field name="sequence_code" readonly="id"/>
+                </group>
+            </field>
+        </field>
+    </record>
+
+    <record id="project_project_view_form" model="ir.ui.view">
+        <field name="name">Project Project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="sale_timesheet.project_project_view_form"/>
+        <field name="arch" type="xml">
+            <page name="billing_employee_rate" position="after">
+                <page name="allocation" string="Allocation" invisible="not allow_billable or not partner_id"> 
+                    <field name="cost_employee_ids">
+                            <tree editable="bottom">
+                            <field name="company_id" column_invisible="True"/>
+                            <field name="partner_id" column_invisible="True"/>
+                            <field name="employee_id" widget="many2one_avatar_user" context="{'create_project_employee_mapping': company_id}"/>
+                            <field name="existing_employee_ids" column_invisible="True"/>
+                            <field name="product_id"/>
+                            <field name="display_cost" widget="monetary" options="{'currency_field': 'cost_currency_id'}"/>
+                            <field name="is_cost_changed" column_invisible="True"/>
+                            <field name="cost_from"/>
+                            <field name="currency_id" column_invisible="True"/>
+                            <field name="cost_currency_id" column_invisible="True"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+            <xpath expr="//header" position="inside">
+                <field name="sale_order_count" invisible="1"/>
+                <button name="action_create_sale_order" string="Create Sales Order" type="object" invisible="sale_order_count" class="btn btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

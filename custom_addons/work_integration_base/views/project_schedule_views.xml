@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="work_project_schedule_form_view" model="ir.ui.view">
+        <field name="name">Project Schedule</field>
+        <field name="model">project.schedule</field>
+        <field name="inherit_id" ref="work_timesheet.work_project_schedule_form_view"/>
+        <field name="arch" type="xml">
+            <field name="employee_id" position="after">
+                <field name="integration_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="work_project_schedule_grid_view" model="ir.ui.view">
+        <field name="name">Project Schedule</field>
+        <field name="model">project.schedule</field>
+        <field name="inherit_id" ref="work_timesheet.work_project_schedule_grid_view"/>
+        <field name="arch" type="xml">
+            <field name="role_id" position="before">
+                <field name="integration_id" type="row"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="work_project_schedule_tree_view" model="ir.ui.view">
+        <field name="name">Project Schedule</field>
+        <field name="model">project.schedule</field>
+        <field name="inherit_id" ref="work_timesheet.work_project_schedule_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="project_id" position="before">
+                <field name="integration_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_project_contract_tree_view" model="ir.ui.view">
+        <field name="name">Project Contract</field>
+        <field name="model">project.contract</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="engagement_id" optional="hide"/>
+                <field name="partner_id"/>
+                <field name="manager_id"/>
+                <field name="stage_id"/>
+                <field name="company_id" optional="hide"/>
+                <field name="project_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="work_project_contract_form_view" model="ir.ui.view">
+        <field name="name">Project Contract</field>
+        <field name="model">project.contract</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group name="contract_area">
+                        <group name="contract_manager_info">
+                            <field name="manager_id"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group name="contract_setting_info">
+                            <field name="partner_id"/>
+                            <field name="engagement_id"/>
+                            <field name="budget"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Projects">
+                            <field name="project_ids" context="{'default_partner_id': partner_id}"/>
+                        </page>
+                        <page string="Contracts">
+                            <group>
+                                <group>
+                                    <field name="sign_template_ids"/>
+                                </group>
+                                <group>
+                                    <field name="signed_document_ids"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="o_attachment_preview"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="work_project_contract_search_view" model="ir.ui.view">
+        <field name="name">Project Contract</field>
+        <field name="model">project.contract</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="manager_id"/>
+                <field name="project_ids"/>
+                <filter string="Open" name="filter_by_open" domain="[('stage_id.key', '=', 'open')]"/>
+                <filter string="Closed" name="filter_by_closed" domain="[('stage_id.key', '=', 'closed')]"/>
+                <filter string="Company" name="group_by_company" context="{'group_by':'company_id'}"/>
+                <filter string="Stage" name="group_by_stage" context="{'group_by':'stage_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_project_contract" model="ir.actions.act_window">
+        <field name="name">Contract</field>
+        <field name="res_model">project.contract</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="work_project_contract_tree_view"/>
+        <field name="search_view_id" ref="work_project_contract_search_view"/>
+    </record>
+
+    <menuitem
+            name="Contracts"
+            id="menu_contract"
+            action="action_project_contract"
+            sequence="0"
+            parent="project.menu_main_pm"
+        />
+</odoo>

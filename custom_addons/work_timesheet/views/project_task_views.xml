@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_project_task_form_view" model="ir.ui.view">
+        <field name="name">Project Task</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <field name="priority" position="after">
+                <field name="key" style="width:fit-content;margin-right:10px;" readonly="1"/>
+            </field>
+            <xpath expr="//notebook" position="inside">
+                <page string="Settings" name="settings" groups="project.group_project_manager">
+                    <group>
+                        <group>
+                            <field name="rate_id"/>
+                        </group>
+                        <group>
+                            <field name="is_required_description"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

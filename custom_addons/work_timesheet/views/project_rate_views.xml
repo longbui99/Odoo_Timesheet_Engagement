@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_project_rate_tree_view" model="ir.ui.view">
+        <field name="name">Project Rate</field>
+        <field name="model">project.rate</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name"/>
+                <field name="project_id" readonly="1" optional="hide" />
+                <field name="fixed_rate" widget="monetary"/>
+                <field name="discount" widget="percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_project_rate" model="ir.actions.act_window">
+        <field name="name">Rate</field>
+        <field name="res_model">project.rate</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="work_project_rate_tree_view"/>
+    </record>
+
+</odoo>

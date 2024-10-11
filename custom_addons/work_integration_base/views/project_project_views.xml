@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="work_project_project_form_view" model="ir.ui.view">
+        <field name="name">Project Project</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <group name="group_tasks_managment" position="before">
+                <group name="group_integration_managment" string="Integration Management" col="1" class="row mt16 o_settings_container" groups="work_integration_base.group_work_integration_manager">
+                    <div>
+                        <setting class="col-lg-12" id="project_integration_setting" help="Configure Integration Source" >
+                            <field name="integration_id"/>
+                        </setting>
+                    </div>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
