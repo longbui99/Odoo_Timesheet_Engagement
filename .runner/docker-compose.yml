@@ -1,0 +1,33 @@
+name: "odoo18"
+services:
+  odoo:
+    image: builong99/odoo:18
+    build: ../.docker
+    volumes:
+      - ../:/opt/odoo
+      - /var/log/odoo:/var/log/odoo
+      - /var/lib/odoo:/var/lib/odoo
+    command: bash -c "$${PYTHON_PATH} $${START_ODOO} $${ODOO_PARAM}"
+    entrypoint: []
+    environment:
+      PYTHON_PATH: "/opt/odoo/.runner/run.sh"
+      START_ODOO: ""
+      ODOO_PARAM: ""
+    network_mode: host
+    restart: unless-stopped
+    tty: true
+
+  postgres:
+    image: postgres:${POSTGRES_VERSION:-15}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    network_mode: host
+    restart: unless-stopped
+    tty: true
+
+volumes:
+  postgres_data:

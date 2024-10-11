@@ -1,0 +1,12 @@
+[submodule "odoo"]
+	url = https://github.com/odoo/odoo.git
+	path = base/odoo
+	branch = 17.0
+[submodule "custom_addons"]
+	path = custom_addons
+	url = https://github.com/longbui99/Odoo_Timesheet_Engagement.git
+	branch = 18.0
+[submodule "enterprise"]
+	url = https://github.com/odoo/enterprise.git
+	path = base/enterprise
+	branch = 17.0
