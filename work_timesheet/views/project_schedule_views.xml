@@ -44,23 +44,23 @@
         </field>
     </record>
 
-    <record id="work_project_schedule_tree_view" model="ir.ui.view">
+    <record id="work_project_schedule_list_view" model="ir.ui.view">
         <field name="name">Project Schedule</field>
         <field name="model">project.schedule</field>
         <field name="arch" type="xml">
-            <tree >
+            <list >
                 <field name="project_id" readonly="1"/>
                 <field name="employee_id"/>
                 <field name="date"/>
                 <field name="schedule_hour"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="action_project_schedule" model="ir.actions.act_window">
         <field name="name">Schedule</field>
         <field name="res_model">project.schedule</field>
-        <field name="view_mode">grid,tree,form</field>
+        <field name="view_mode">grid,list,form</field>
         <field name="view_id" ref="work_project_schedule_grid_view"/>
     </record>
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="work_project_contract_tree_view" model="ir.ui.view">
+    <record id="work_project_contract_list_view" model="ir.ui.view">
         <field name="name">Project Contract</field>
         <field name="model">project.contract</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="engagement_id" optional="hide"/>
                 <field name="partner_id"/>
@@ -12,7 +12,7 @@
                 <field name="stage_id"/>
                 <field name="company_id" optional="hide"/>
                 <field name="project_ids" widget="many2many_tags"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -56,12 +56,7 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="o_attachment_preview"/>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>
         </field>
     </record>
@@ -86,8 +81,8 @@
     <record id="action_project_contract" model="ir.actions.act_window">
         <field name="name">Contract</field>
         <field name="res_model">project.contract</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="work_project_contract_tree_view"/>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="work_project_contract_list_view"/>
         <field name="search_view_id" ref="work_project_contract_search_view"/>
     </record>
 

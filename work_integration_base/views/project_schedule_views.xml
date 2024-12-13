@@ -23,10 +23,10 @@
         </field>
     </record>
 
-    <record id="work_project_schedule_tree_view" model="ir.ui.view">
+    <record id="work_project_schedule_list_view" model="ir.ui.view">
         <field name="name">Project Schedule</field>
         <field name="model">project.schedule</field>
-        <field name="inherit_id" ref="work_timesheet.work_project_schedule_tree_view"/>
+        <field name="inherit_id" ref="work_timesheet.work_project_schedule_list_view"/>
         <field name="arch" type="xml">
             <field name="project_id" position="before">
                 <field name="integration_id"/>
