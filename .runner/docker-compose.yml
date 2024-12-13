@@ -8,8 +8,8 @@ services:
       - "8072:8072"
     volumes:
       - ../:/opt/odoo
-      - /var/log/odoo:/var/log/odoo
-      - /var/lib/odoo:/var/lib/odoo
+      - /opt/.storage/odoo18/odoo_log:/var/log/odoo
+      - /opt/.storage/odoo18/odoo_lib:/var/lib/odoo
     command: bash -c "$${PYTHON_PATH} $${START_ODOO} $${ODOO_PARAM}  && tail -f /dev/null"
     environment:
       PYTHON_PATH: "/opt/odoo/.runner/run.sh"

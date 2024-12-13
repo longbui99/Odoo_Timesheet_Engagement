@@ -3,27 +3,32 @@ services:
   odoo:
     image: builong99/odoo:18
     build: ../.docker
+    ports:
+      - "8090:8069"
+      - "8072:8072"
     volumes:
       - ../:/opt/odoo
-      - odoo_filestore_data:/var/log/odoo
-    command: bash -c "$${PYTHON_PATH} $${START_ODOO} $${ODOO_PARAM}"
-    entrypoint: []
+      - /opt/.storage/odoo18/odoo_log:/var/log/odoo
+      - /opt/.storage/odoo18/odoo_lib:/var/lib/odoo
+    command: bash -c "$${PYTHON_PATH} $${START_ODOO} $${ODOO_PARAM}  && tail -f /dev/null"
     environment:
       PYTHON_PATH: "/opt/odoo/.runner/run_upgrade.sh"
       START_ODOO: ""
       ODOO_PARAM: ""
-    network_mode: host
     restart: unless-stopped
+    depends_on:
+      - postgres
     tty: true
 
   postgres:
-    image: postgres:${POSTGRES_VERSION:-13}
+    image: postgres:${POSTGRES_VERSION:-15}
+    ports:
+      - 5432:5432
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - /opt/.storage/odoo18/postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: postgres
-      POSTGRES_USER: root
+      POSTGRES_USER: odoo
       POSTGRES_PASSWORD: odoo
-    network_mode: host
     restart: unless-stopped
     tty: true
