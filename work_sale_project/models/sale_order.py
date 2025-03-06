@@ -8,7 +8,7 @@ class SaleOrder(models.Model):
 
     def _compute_estimated_amount(self):
         for order in self:
-            order.estimated_amount = sum([line.qty_delivered*line.price_unit for line in self.order_line])
+            order.estimated_amount = sum([line.qty_delivered*line.price_unit for line in order.order_line])
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
